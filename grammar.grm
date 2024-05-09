@@ -1,0 +1,76 @@
+!---------------------------------------------------------
+"Name"          = 'E#'
+"Author"        = 'Eman Yaser'
+"Start Symbol"  = <program>
+                
+
+!---------------------------------------------------------Terminals
+identifier = {letter}{Alphanumeric}*
+int = {Digit}+
+float = {Digit}+ '.' {Digit}+
+string = '"' {Printable}+ '"'
+
+boolean = 'True' | 'False'
+        
+
+
+!---------------------------------------------------------Non-Terminals
+<program> ::= Program <statement_list> EndProgram
+
+<statement_list> ::= <statement> ';' <statement_list>
+                   | <statement>
+
+<statement> ::= <assignment>
+              | <conditional>
+              | <loop>
+              | <for_loop>
+              | <while_loop>
+              | <do_while_loop>
+              | <switch_case>
+
+<assignment> ::= identifier '<-' <expression>
+
+<conditional> ::= 'if' <expression> 'then' <statement_list> <elif_clause> <else_clause>
+
+<elif_clause> ::= 'elif' <expression> 'then' <statement_list> <elif_clause>
+                | 
+
+<else_clause> ::= 'else' 'then' <statement_list>
+                | 
+
+<loop> ::= 'loop' <expression> 'do' <statement_list> 'endloop'
+
+<for_loop> ::= 'for' identifier '<-' <expression> 'to' <expression> 'do' <statement_list> 'endfor'
+
+<while_loop> ::= 'while' <expression> 'do' <statement_list> 'endwhile'
+
+<do_while_loop> ::= 'do' <statement_list> 'while' <expression>
+
+<switch_case> ::= 'switch' identifier <case_clause> 'endswitch'
+
+<case_clause> ::= 'case' int ':' <statement_list> <case_clause>
+                | 'default' ':' <statement_list>
+                | 
+
+<expression> ::= <arithmetic_expression>
+               | <logical_expression>
+               | <value>
+
+<arithmetic_expression> ::= <value> '+' <value>
+                          | <value> '-' <value>
+                          | <value> '*' <value>
+                          | <value> '/' <value>
+
+<logical_expression> ::= <value> '==' <value>
+                       | <value> '!=' <value>
+                       | <value> '<' <value>
+                       | <value> '>' <value>
+                       | <value> '<=' <value>
+                       | <value> '>=' <value>
+
+<value> ::= identifier
+          | int
+          | float
+          | string
+          | boolean
+
